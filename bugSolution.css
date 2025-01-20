@@ -1,0 +1,43 @@
+Several approaches can resolve the inconsistent behavior. The most effective solution often depends on the specific structure and context of your HTML:
+
+**Approach 1: More Explicit Selectors**
+This approach aims to clarify exactly which element to style. Instead of relying on the combination of `:nth-child`, `:hover`, and `:last-child`, it directly targets the element in question:
+
+```css
+.container {
+  display: flex;
+}
+
+.item {
+  width: 50px;
+  height: 50px;
+  background-color: lightblue;
+  margin: 5px;
+}
+
+.container:hover > .item:last-child {
+  background-color: lightcoral; /* Directly targets last child of container */
+}
+```
+
+This solution uses the `>` child combinator to only target direct children of `.container`. 
+
+**Approach 2:  JavaScript Solution (For Dynamic Scenarios)**
+If the number of nested items is dynamic or unpredictable, a JavaScript solution offers greater flexibility. This approach uses JavaScript to listen for hover events and style the elements accordingly. 
+
+```javascript
+const container = document.querySelector('.container');
+const items = container.querySelectorAll('.item');
+
+container.addEventListener('mouseover', () => {
+  items[items.length - 1].style.backgroundColor = 'lightcoral';
+});
+
+container.addEventListener('mouseout', () => {
+  items[items.length - 1].style.backgroundColor = 'lightblue';
+});
+```
+
+This approach requires including the JavaScript code in your HTML file.  Remember to adjust selectors as needed to match your HTML structure.
+
+Choose the approach that best fits your situation. For simple, static layouts, more explicit CSS selectors are usually preferable.  For dynamic scenarios or complex layouts, a JavaScript solution may be necessary.
